@@ -63,7 +63,10 @@ class TreeView extends EventEmitter {
   }
 
   clearSelection() {
-    for (const selectedNode of this.selectedNodes) selectedNode.classList.remove("selected");
+    for (const selectedNode of this.selectedNodes) {
+      if (selectedNode)
+        selectedNode.classList.remove("selected");
+    }
     this.selectedNodes.length = 0;
     this.firstSelectedNode = null;
   }
@@ -220,7 +223,7 @@ class TreeView extends EventEmitter {
 
     // Update selection
     if (element.tagName === "BUTTON" || element.tagName === "INPUT" || element.tagName === "SELECT") return;
-    if (this.updateSelection(event)) this.emit("selectionChange");
+    if (this.updateSelection(event)) this.emit("selectionChange", event);
   };
 
   // Returns whether the selection changed

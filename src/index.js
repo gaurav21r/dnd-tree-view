@@ -27,7 +27,7 @@ var TreeView = (function (_super) {
             if (element.tagName === "BUTTON" || element.tagName === "INPUT" || element.tagName === "SELECT")
                 return;
             if (_this.updateSelection(event))
-                _this.emit("selectionChange");
+                _this.emit("selectionChange", event);
         };
         _this.onDoubleClick = function (event) {
             if (_this.selectedNodes.length !== 1)
@@ -234,7 +234,8 @@ var TreeView = (function (_super) {
     TreeView.prototype.clearSelection = function () {
         for (var _i = 0, _a = this.selectedNodes; _i < _a.length; _i++) {
             var selectedNode = _a[_i];
-            selectedNode.classList.remove("selected");
+            if (selectedNode)
+                selectedNode.classList.remove("selected");
         }
         this.selectedNodes.length = 0;
         this.firstSelectedNode = null;
